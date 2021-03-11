@@ -11,9 +11,7 @@ using System.Threading.Tasks;
 
 namespace Stonk.WebApi.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastController : StonkBaseApiController
     {
         
 
