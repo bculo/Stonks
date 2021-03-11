@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Stonk.Application.Contracts;
 using Stonk.Application.Models;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,11 @@ namespace Stonk.WebApi.Controllers
     [Route("[controller]")]
     public abstract class StonkBaseApiController : ControllerBase
     {
-        protected IActionResult HandleResponse<T>(Result<T> result)
+        protected IActionResult HandleResponse(IResult result)
         {
             if (result.Succedded)
             {
-                return Ok(result.Instance);
+                return Ok(result.GetResult());
             }
 
             HttpStatusCode status = (HttpStatusCode)result.Status;

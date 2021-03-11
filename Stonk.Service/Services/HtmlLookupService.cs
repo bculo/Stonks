@@ -40,6 +40,24 @@ namespace Stonk.Service.Services
             return HandleElementSearchResult(element, innerHtml);
         }
 
+        public string FindHtmlElementByTag(string html, string elementName, bool innerHtml = false)
+        {
+            PrepareDocument(html);
+
+            var element = SingleElementSearch($"//{elementName}");
+
+            return HandleElementSearchResult(element, innerHtml);
+        }
+
+        public T GetHtmlElementDataAttributeValue<T>(string htmlElement, string attributeName)
+        {
+            PrepareDocument(htmlElement);
+
+            var attributeValue = Document.DocumentNode.GetAttributeValue<T>(attributeName, default);
+
+            return attributeValue;
+        }
+
         private HtmlNode SingleElementSearch(string searchPattern)
         {
             return Document.DocumentNode.SelectSingleNode(searchPattern);

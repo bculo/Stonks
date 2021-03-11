@@ -1,18 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Stonk.Application;
 using Stonk.Application.Contracts.Clients;
 using Stonk.Application.Contracts.Modules;
 using Stonk.Application.Contracts.Services;
-using Stonk.Application.Modules.Premarket;
+using Stonk.Application.Modules;
 using Stonk.Application.Options;
 using Stonk.Service.Clients;
 using Stonk.Service.Services;
@@ -33,13 +28,19 @@ namespace Stonk.WebApi
         {
             services.AddControllers();
 
+            services.AddAutoMapper(typeof(ApplicationAssemblyReference).Assembly);
+
             services.AddOptions();
             services.Configure<PremarketOptions>(Configuration.GetSection("PremarketOptions"));
+            services.Configure<FinVizOptions>(Configuration.GetSection("FinVizOptions"));
 
             services.AddHttpClient<IPremarketClient, MarketWatchClient>();
+            services.AddHttpClient<IStonkInfoClient, FinVizStockClient>();
 
             services.AddScoped<IHtmlLookupService, HtmlLookupService>();
-            services.AddScoped<IPremarketService, PremarketService>();
+            services.AddScoped<IPremarketStockService, PremarketStockService>();
+            services.AddScoped<IStockInfoClientFactory, StockInfoClientFactory>();
+            services.AddScoped<IStonkInformationService, StonkInformationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

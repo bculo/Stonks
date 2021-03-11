@@ -21,9 +21,9 @@ namespace Stonk.WebApi.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IPremarketService _client;
+        private readonly IPremarketStockService _client;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IPremarketService client)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IPremarketStockService client)
         {
             _logger = logger;
             _client = client;
