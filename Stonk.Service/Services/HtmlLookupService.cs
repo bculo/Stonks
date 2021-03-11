@@ -1,0 +1,80 @@
+﻿using HtmlAgilityPack;
+using Microsoft.Extensions.Logging;
+using Stonk.Application.Contracts.Services;
+using Stonk.Application.Extensions;
+using Stonk.Application.Models;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Stonk.Service.Services
+{
+    public class HtmlLookupService : IHtmlLookupService
+    {
+        private readonly ILogger<HtmlLookupService> _logger;
+
+        public HtmlDocument Document { get; set; }
+        public string PreviousRequestHtml { get; set; }
+
+        public HtmlLookupService(ILogger<HtmlLookupService> logger)
+        {
+            _logger = logger;
+        }
+
+        public string FindHtmlElementByClass(string html, string elementClass, bool innerHtml = false)
+        {
+            PrepareDocument(html);
+
+            var element = SingleElementSearch($"//*[contains(@class, '{elementClass}')]");
+
+            return HandleElementSearchResult(element, innerHtml);
+        }
+
+        public string FindHtmlElementById(string html, string elementId, bool innerHtml = false)
+        {
+            PrepareDocument(html);
+
+            var element = SingleElementSearch($"//*[contains(@id, '{elementId}')]");
+
+            return HandleElementSearchResult(element, innerHtml);
+        }
+
+        private HtmlNode SingleElementSearch(string searchPattern)
+        {
+            return Document.DocumentNode.SelectSingleNode(searchPattern);
+        }
+
+        private string HandleElementSearchResult(HtmlNode node, bool innerHtml)
+        {
+            if (node is null)
+            {
+                return null;
+            }
+
+            if (innerHtml)
+            {
+                return node.InnerText;
+            }
+
+            return node.OuterHtml;
+        }
+
+        private void PrepareDocument(string html)
+        {
+            if(Document is null)
+            {
+                Document = new HtmlDocument();
+                Document.LoadHtml(html);
+            }
+
+            if(PreviousRequestHtml != html)
+            {
+                Document = new HtmlDocument();
+                Document.LoadHtml(html);
+            }
+
+            PreviousRequestHtml = html;
+        }
+    }
+}
