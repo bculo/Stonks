@@ -38,6 +38,8 @@ namespace Stonk.Application.Contracts.Services
         /// <returns></returns>
         string FindHtmlElementByTag(string html, string elementName, bool innerHtml = false);
 
+        string FindHtmlElementByTag(string html, string elementName, int elementIndex, bool innerHtml = false);
+
         /// <summary>
         /// Get attribute value
         /// </summary>

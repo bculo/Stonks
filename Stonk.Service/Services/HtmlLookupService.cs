@@ -49,6 +49,48 @@ namespace Stonk.Service.Services
             return HandleElementSearchResult(element, innerHtml);
         }
 
+        public string FindHtmlElementByTag(string html, string elementName, int elementIndex, bool innerHtml = false)
+        {
+            PrepareDocument(html);
+
+            var elements = MultipleElementsSearch($"//{elementName}");
+
+            if (!MultipleElementsSearchValid(elements))
+            {
+                return null;
+            }
+
+            if(elements.Count < elementIndex)
+            {
+                return null;
+            }
+
+            var element = elements[elementIndex];
+
+            return HandleElementSearchResult(element, innerHtml);
+        }
+
+        public string FindHtmlElementByXPath(string html, string xpath, int elementIndex, bool innerHtml = false)
+        {
+            PrepareDocument(html);
+
+            var elements = MultipleElementsSearch(xpath);
+
+            if (!MultipleElementsSearchValid(elements))
+            {
+                return null;
+            }
+
+            if (elements.Count < elementIndex)
+            {
+                return null;
+            }
+
+            var element = elements[elementIndex];
+
+            return HandleElementSearchResult(element, innerHtml);
+        }
+
         public T GetHtmlElementDataAttributeValue<T>(string htmlElement, string attributeName)
         {
             PrepareDocument(htmlElement);
@@ -61,6 +103,11 @@ namespace Stonk.Service.Services
         private HtmlNode SingleElementSearch(string searchPattern)
         {
             return Document.DocumentNode.SelectSingleNode(searchPattern);
+        }
+
+        private HtmlNodeCollection MultipleElementsSearch(string searchPattern)
+        {
+            return Document.DocumentNode.SelectNodes(searchPattern);
         }
 
         private string HandleElementSearchResult(HtmlNode node, bool innerHtml)
@@ -76,6 +123,21 @@ namespace Stonk.Service.Services
             }
 
             return node.OuterHtml;
+        }
+
+        private bool MultipleElementsSearchValid(HtmlNodeCollection nodes)
+        {
+            if (nodes is null)
+            {
+                return false;
+            }
+
+            if(nodes.Count == 0)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private void PrepareDocument(string html)

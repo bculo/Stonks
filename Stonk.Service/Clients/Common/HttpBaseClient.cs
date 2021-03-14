@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Stonk.Application.Extensions;
 using Stonk.Application.Models;
@@ -13,16 +14,19 @@ namespace Stonk.Service.Clients.Common
 {
     public abstract class HttpBaseClient
     {
-        private readonly UrlBaseOptions _url;
-
+        protected readonly UrlBaseOptions _url;
         protected readonly ILogger<HttpBaseClient> _logger;
         protected readonly HttpClient _http;
+
+        private Dictionary<string, string> QueryParams { get; set; }
 
         public HttpBaseClient(HttpClient http, UrlBaseOptions url, ILogger<HttpBaseClient> logger)
         {
             _http = http;
             _url = url;
             _logger = logger;
+
+            QueryParams = new Dictionary<string, string>();
 
             SetBaseAddress();
         }
@@ -80,6 +84,16 @@ namespace Stonk.Service.Clients.Common
             }
 
             return HandleBadRequest<T>(response);
+        }
+
+        public void AddQueryParam(string key, string value)
+        {
+            QueryParams.Add(key, value);
+        }
+
+        public string BuildQuery()
+        {
+            return QueryHelpers.AddQueryString(string.Empty, QueryParams);
         }
     }
 }

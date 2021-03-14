@@ -9,8 +9,11 @@ namespace Stonk.Application.Dtos.Stonks.Client
         public string PageSource { get; set; }
         public string PageSourceUrl { get; set; }
         public string Symbol { get; set; }
+        public string Country { get; set; }
         public string Name { get; set; }
         public string Price { get; set; }
+        public string Sector { get; set; }
+        public string SubSector { get; set; }
         public string PreviousPrice { get; set; }
         public string MarcketCap { get; set; }
         public string Income { get; set; }
