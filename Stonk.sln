@@ -13,15 +13,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{90D3B838-F1E5-420F-9E29-1EAA33FBF55B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stonk.Persistence", "Stonk.Persistence\Stonk.Persistence.csproj", "{B7F09265-C4D8-47A7-A817-7D375251E965}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stonk.Persistence", "Stonk.Persistence\Stonk.Persistence.csproj", "{B7F09265-C4D8-47A7-A817-7D375251E965}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stonk.Service", "Stonk.Service\Stonk.Service.csproj", "{26F71650-EA4F-4DC4-ADF5-A52C2C18E59F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stonk.Service", "Stonk.Service\Stonk.Service.csproj", "{26F71650-EA4F-4DC4-ADF5-A52C2C18E59F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stonk.Application", "Stonk.Application\Stonk.Application.csproj", "{31201FDF-29A0-4834-9C15-78E4AEC848F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stonk.Application", "Stonk.Application\Stonk.Application.csproj", "{31201FDF-29A0-4834-9C15-78E4AEC848F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stonk.Core", "Stonk.Core\Stonk.Core.csproj", "{D7165B91-64FC-4561-8248-AF843743B77C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stonk.Core", "Stonk.Core\Stonk.Core.csproj", "{D7165B91-64FC-4561-8248-AF843743B77C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stonk.WebApi", "Stonk.WebApi\Stonk.WebApi.csproj", "{1A0F21FD-8A26-4A8F-B912-86859F9B1B43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stonk.WebApi", "Stonk.WebApi\Stonk.WebApi.csproj", "{1A0F21FD-8A26-4A8F-B912-86859F9B1B43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

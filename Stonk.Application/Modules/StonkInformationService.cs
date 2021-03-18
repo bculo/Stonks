@@ -42,14 +42,7 @@ namespace Stonk.Application.Modules
                 return ResultExtensions.FailureArray<StockInfoResponseDto>("Unexpected exception");
             }
 
-            var clientTasks = new List<Task>();
-
-            foreach(var client in clients)
-            {
-                clientTasks.Add(client.GetStockInfo(symbol));
-            }
-
-            await Task.WhenAll(clientTasks);
+            var clientTasks = await LaunchClientsCall(clients, symbol);
 
             var finishedTasks = clientTasks.Cast<Task<Result<StockInfoClientResponseDto>>>();
 
@@ -57,16 +50,40 @@ namespace Stonk.Application.Modules
 
             foreach(var finshedTask in finishedTasks)
             {
-                var taskResult = finshedTask.Result;
+                var instance = HandleClientResponse(finshedTask.Result);
 
-                if (taskResult.Succedded)
+                if (instance == null)
                 {
-                    var dto = _mapper.Map<StockInfoResponseDto>(taskResult.Instance);
+                    var dto = _mapper.Map<StockInfoResponseDto>(instance);
                     results.Add(dto);
                 }
             }
 
             return ResultExtensions.Success(instances: results);
+        }
+
+        private async Task<List<Task>> LaunchClientsCall(List<IStonkInfoClient> clients, string symbol)
+        {
+            var clientTasks = new List<Task>();
+
+            foreach (var client in clients)
+            {
+                clientTasks.Add(client.GetStockInfo(symbol));
+            }
+
+            await Task.WhenAll(clientTasks);
+
+            return clientTasks;
+        }
+
+        private StockInfoClientResponseDto HandleClientResponse(Result<StockInfoClientResponseDto> response)
+        {
+            if (response.Succedded)
+            {
+                return response.Instance;
+            }
+
+            return null;
         }
     }
 }

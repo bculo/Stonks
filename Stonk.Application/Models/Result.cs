@@ -7,7 +7,6 @@ namespace Stonk.Application.Models
 {
     public class Result<T> : IResult
     {
-        public int Status { get; set; }
         public bool Succedded { get; set; }
         public string Message { get; set; }
         public T Instance { get; set; }
@@ -25,7 +24,6 @@ namespace Stonk.Application.Models
 
     public class ResultArray<T> : IResult
     {
-        public int Status { get; set; }
         public bool Succedded { get; set; }
         public string Message { get; set; }
         public IEnumerable<T> Instances { get; set; }

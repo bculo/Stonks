@@ -15,19 +15,7 @@ namespace Stonk.WebApi.Controllers
     {
         protected IActionResult HandleResponse(IResult result)
         {
-            if (result.Succedded)
-            {
-                return Ok(result.GetResult());
-            }
-
-            HttpStatusCode status = (HttpStatusCode)result.Status;
-
-            if (status == HttpStatusCode.NotFound)
-            {
-                return NotFound();
-            }
-
-            return BadRequest(result.Message);
+            return Ok(result.GetResult());
         }
     }
 }

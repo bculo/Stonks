@@ -13,7 +13,6 @@ namespace Stonk.Application.Extensions
             return new Result
             {
                 Succedded = true,
-                Status = (int)HttpStatusCode.OK
             };
         }
 
@@ -23,7 +22,6 @@ namespace Stonk.Application.Extensions
             {
                 Instance = instance,
                 Succedded = true,
-                Status = (int)HttpStatusCode.OK
             };
         }
 
@@ -33,37 +31,33 @@ namespace Stonk.Application.Extensions
             {
                 Instances = instances,
                 Succedded = true,
-                Status = (int)HttpStatusCode.OK
             };
         }
 
-        public static Result Failure(string message, int status = (int)HttpStatusCode.BadRequest)
+        public static Result Failure(string message)
         {
             return new Result
             {
                 Succedded = false,
                 Message = message,
-                Status = status
             };
         }
 
-        public static Result<T> Failure<T>(string message, int status = (int)HttpStatusCode.BadRequest)
+        public static Result<T> Failure<T>(string message)
         {
             return new Result<T>
             {
                 Succedded = false,
                 Message = message,
-                Status = (int)HttpStatusCode.BadRequest
             };
         }
 
-        public static ResultArray<T> FailureArray<T>(string message, int status = (int)HttpStatusCode.BadRequest)
+        public static ResultArray<T> FailureArray<T>(string message)
         {
             return new ResultArray<T>
             {
                 Succedded = false,
                 Message = message,
-                Status = (int)HttpStatusCode.BadRequest
             };
         }
     }

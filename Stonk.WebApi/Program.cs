@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog.Events;
+using Serilog.Core;
+using Serilog;
+
 
 namespace Stonk.WebApi
 {
@@ -18,6 +22,12 @@ namespace Stonk.WebApi
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .UseSerilog((context, configuration) =>
+                {
+                    configuration.Enrich.FromLogContext()
+                        .Enrich.WithMachineName()
+                        .WriteTo.Console();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

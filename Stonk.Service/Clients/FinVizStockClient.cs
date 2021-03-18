@@ -57,7 +57,7 @@ namespace Stonk.Service.Clients
             if (!ContainsTickerId(result.Instance, symbol))
             {
                 _logger.LogInformation("Ticker {0} not found", symbol);
-                return ResultExtensions.Failure<StockInfoClientResponseDto>("Ticker not found", (int)HttpStatusCode.NotFound);
+                return ResultExtensions.Failure<StockInfoClientResponseDto>("Ticker not found");
             }
 
             var fetchedInstance = ParseInstanceFromHtmlContent(result.Instance);

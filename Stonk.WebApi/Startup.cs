@@ -36,6 +36,7 @@ namespace Stonk.WebApi
 
             services.AddHttpClient<IPremarketClient, MarketWatchClient>();
             services.AddHttpClient<IStonkInfoClient, FinVizStockClient>();
+            //services.AddHttpClient<IStonkInfoClient, YahooFinanceClient>();
 
             services.AddScoped<IHtmlLookupService, HtmlLookupService>();
             services.AddScoped<IPremarketStockService, PremarketStockService>();
